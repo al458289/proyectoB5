@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 3
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - aff
+  - Water
+  - UI
+  - afaf
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: suelo
+    uniqueID: 168704025
+    locked: 0
+  - name: arreglos
+    uniqueID: 1601231939
+    locked: 0
+  - name: paredes_fuera
+    uniqueID: 1054105865
+    locked: 0
+  - name: paredes_dentro
+    uniqueID: 302463513
+    locked: 0
+  - name: decoraciones2
+    uniqueID: 1166527457
+    locked: 0
+  - name: decoraciones
+    uniqueID: 1011413085
+    locked: 0
+  - name: player
+    uniqueID: 3220419113
+    locked: 0
+  m_RenderingLayers:
+  - Default
