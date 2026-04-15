@@ -44,6 +44,9 @@ TagManager:
   - name: suelo
     uniqueID: 168704025
     locked: 0
+  - name: player
+    uniqueID: 3220419113
+    locked: 0
   - name: arreglos
     uniqueID: 1601231939
     locked: 0
@@ -53,14 +56,11 @@ TagManager:
   - name: paredes_dentro
     uniqueID: 302463513
     locked: 0
-  - name: decoraciones2
-    uniqueID: 1166527457
-    locked: 0
   - name: decoraciones
     uniqueID: 1011413085
     locked: 0
-  - name: player
-    uniqueID: 3220419113
+  - name: decoraciones2
+    uniqueID: 1166527457
     locked: 0
   m_RenderingLayers:
   - Default

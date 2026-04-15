@@ -9,54 +9,53 @@ public class PlayerController : MonoBehaviour
     private float initialScaleX;
     private Rigidbody2D rb;
     private Animator animator;
-
-    // Cambiamos a Vector2 para guardar los ejes X (horizontal) e Y (vertical)
     private Vector2 movementInput;
 
     void Start()
     {
+        // Guardamos la escala original (positiva). 
+        // Como el dibujo original mira a la izq., esta escala significa "Mirar a la izquierda"
         initialScaleX = transform.localScale.x;
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
 
-        // Importante: Si es un juego visto desde arriba, la gravedad no debería afectarle.
-        // Lo pongo a 0 aquí por precaución, aunque puedes hacerlo en el inspector.
+        // Evitamos que el personaje flote o rote por colisiones
         rb.gravityScale = 0f;
+        rb.freezeRotation = true;
     }
 
     public void OnMove(InputValue value)
     {
-        // Guardamos el vector completo de movimiento
         movementInput = value.Get<Vector2>();
     }
 
     void FixedUpdate()
     {
-        // 1. MOVIMIENTO: Aplicamos la velocidad tanto en X como en Y
-        rb.linearVelocity = new Vector2(movementInput.x * moveSpeed, movementInput.y * moveSpeed);
+        // 1. MOVIMIENTO
+        rb.linearVelocity = movementInput * moveSpeed;
 
-        // 2. ANIMACIÓN: Controlamos el bool "caminando"
+        // 2. ANIMACIÓN
         if (animator != null)
         {
-            // Si el jugador está pulsando alguna tecla de movimiento (magnitud mayor a 0.1)
-            if (movementInput.magnitude > 0.1f)
-            {
-                animator.SetBool("caminando", true); // Empieza a caminar
-            }
-            else
-            {
-                animator.SetBool("caminando", false); // Vuelve a estar quieto
-            }
+            animator.SetFloat("horizontal", movementInput.x);
+            animator.SetFloat("vertical", movementInput.y);
+
+            // Si la magnitud es mayor a 0, está caminando
+            bool estaMoviendose = movementInput.sqrMagnitude > 0.01f;
+            animator.SetBool("caminando", estaMoviendose);
         }
 
-        // 3. GIRO (FLIP): Mantenemos el giro solo para el eje X
-        if (movementInput.x > 0.1f) // Moviéndose a la derecha
+        // 3. FLIP (Giro de cara)
+        // IMPORTANTE: Hemos invertido la lógica porque tu original mira a la izquierda
+        if (movementInput.x > 0.1f)
         {
-            transform.localScale = new Vector3(initialScaleX, transform.localScale.y, transform.localScale.z);
-        }
-        else if (movementInput.x < -0.1f) // Moviéndose a la izquierda
-        {
+            // Si va a la DERECHA, le ponemos la escala en negativo para voltearlo
             transform.localScale = new Vector3(-initialScaleX, transform.localScale.y, transform.localScale.z);
+        }
+        else if (movementInput.x < -0.1f)
+        {
+            // Si va a la IZQUIERDA, lo dejamos en positivo (como el original)
+            transform.localScale = new Vector3(initialScaleX, transform.localScale.y, transform.localScale.z);
         }
     }
 }
