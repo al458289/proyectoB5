@@ -62,5 +62,11 @@ TagManager:
   - name: decoraciones2
     uniqueID: 1166527457
     locked: 0
+  - name: interactuable
+    uniqueID: 4294085479
+    locked: 0
+  - name: text_box
+    uniqueID: 1034982015
+    locked: 0
   m_RenderingLayers:
   - Default

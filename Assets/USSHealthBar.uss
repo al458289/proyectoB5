@@ -1,0 +1,25 @@
+:root {
+}
+
+.my-progress-bar {
+}
+
+.my-progress-bar .unity-progress-bar__container {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+.my-progress-bar .unity-progress-bar__background {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.my-progress-bar .unity-progress-bar__title {
+    -unity-font-style: normal;
+    -unity-font-definition: url("project://database/Assets/GUI%C3%87/ARCADECLASSIC.TTF?fileID=12800000&guid=c802acbb0b33e7343bca357880c41870&type=3#ARCADECLASSIC");
+    font-size: 25px;
+    -unity-text-align: upper-center;
+}
