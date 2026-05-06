@@ -5,24 +5,37 @@ public class agujero : MonoBehaviour
 {
     public string nombreDeLaEscenaDestino;
 
+    [Header("Punto de Aparición en la Nueva Escena")]
+    public Vector3 posicionEnNuevaEscena;
+
     private bool jugadorCerca = false;
+    private bool yaSeActivo = false; // Para evitar que intente cargar la escena muchas veces
 
     void Update()
     {
-        // Se activa automáticamente al tocar el trigger
-        if (jugadorCerca)
+        if (jugadorCerca && !yaSeActivo)
         {
-            // Marcar puzzle como completado
+            yaSeActivo = true;
+            CompletarAgujero();
+        }
+    }
+
+    private void CompletarAgujero()
+    {
+        if (GameManager.Instance != null)
+        {
+            // 1. Marcar puzzle como completado
             GameManager.Instance.puzzle2Completado = true;
 
-            // Guardar posición del jugador
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            // 2. Definimos dónde aparecerá el jugador en la casa
+            GameManager.Instance.playerPosition = posicionEnNuevaEscena;
 
-           
-
-            // Cambiar escena
-            SceneManager.LoadScene(nombreDeLaEscenaDestino);
+            // 3. Guardar partida para que el progreso persista
+            GameManager.Instance.SaveGame();
         }
+
+        // 4. Cambiar escena
+        SceneManager.LoadScene(nombreDeLaEscenaDestino);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

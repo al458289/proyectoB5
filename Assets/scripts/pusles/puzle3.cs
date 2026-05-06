@@ -1,13 +1,17 @@
 using UnityEngine;
 using TMPro;
-using UnityEngine.SceneManagement; // <--- ESTO ES NUEVO E IMPRESCINDIBLE
+using UnityEngine.SceneManagement;
 
 public class ContadorPuzle : MonoBehaviour
 {
     [Header("Configuración")]
     public TextMeshProUGUI textoNumero;
     public int valorActual = 10;
-    public int respuestaCorrecta = 15; // Pon aquí el número que sea la solución
+    public int respuestaCorrecta = 15;
+
+    [Header("Retorno a Escena")]
+    public string nombreEscenaPrincipal = "SampleScene";
+    public Vector3 posicionDeRegreso; // Pon aquí las coordenadas de la casa
 
     void Start()
     {
@@ -26,24 +30,29 @@ public class ContadorPuzle : MonoBehaviour
         ActualizarInterfaz();
     }
 
-    // --- ESTA ES LA FUNCIÓN PARA EL BOTÓN PLAY ---
     public void ConfirmarYPasarEscena()
     {
         if (valorActual == respuestaCorrecta)
         {
-            // Marcar puzzle como completado
-           GameManager.Instance.puzzle3Completado = true;
+            if (GameManager.Instance != null)
+            {
+                // 1. Marcar progreso
+                GameManager.Instance.puzzle3Completado = true;
 
-            // Guardar partida (SIN tocar la posición)
-            GameManager.Instance.SaveGame();
+                // 2. Definir dónde aparece el jugador al volver
+                // Importante: Pon las coordenadas de la habitación donde esté el puzzle
+                GameManager.Instance.playerPosition = posicionDeRegreso;
 
-            // Cambiar escena
-            SceneManager.LoadScene("SampleScene");
+                // 3. Guardar partida
+                GameManager.Instance.SaveGame();
+            }
+
+            // 4. Cambiar escena
+            SceneManager.LoadScene(nombreEscenaPrincipal);
         }
         else
         {
             Debug.Log("Respuesta incorrecta: " + valorActual);
-            // Aquí podrías poner un sonido de error o un mensaje en pantalla
         }
     }
 

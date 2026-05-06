@@ -3,38 +3,44 @@ using UnityEngine.SceneManagement;
 
 public class QUESO : MonoBehaviour
 {
+    [Header("Configuración de Escena")]
     public string nombreDeLaEscenaDestino;
 
-    private bool jugadorCerca = false;
+    [Header("Punto de Aparición al Volver")]
+    [Tooltip("Las coordenadas X, Y, Z donde quieres que el jugador aparezca en la siguiente escena")]
+    public Vector3 posicionEnNuevaEscena;
 
-    void Update()
-    {
-        if (jugadorCerca)
-        {
-            // Marcar puzzle como completado
-            GameManager.Instance.puzzle1Completado = true;
-
-            // Guardar partida (SIN tocar la posición)
-            GameManager.Instance.SaveGame();
-
-            // Cambiar escena
-            SceneManager.LoadScene(nombreDeLaEscenaDestino);
-        }
-    }
+    private bool cambiandoEscena = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        // Solo actuamos si es el Jugador y si no estamos ya cambiando de escena
+        if (collision.CompareTag("Player") && !cambiandoEscena)
         {
-            jugadorCerca = true;
+            cambiandoEscena = true;
+            CompletarPuzzle();
         }
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
+    private void CompletarPuzzle()
     {
-        if (collision.CompareTag("Player"))
+        if (GameManager.Instance != null)
         {
-            jugadorCerca = false;
+            // 1. Marcar el puzzle como hecho
+            GameManager.Instance.puzzle1Completado = true;
+
+            // 2. IMPORTANTE: En lugar de guardar la posición actual del laberinto,
+            // le decimos al Manager que la posición guardada sea la de la nueva escena.
+            GameManager.Instance.playerPosition = posicionEnNuevaEscena;
+
+            // 3. Guardar los datos en PlayerPrefs
+            // Pasamos 'false' si modificaste el SaveGame como te sugerí, 
+            // o simplemente llamamos a SaveGame() si prefieres el método estándar.
+            GameManager.Instance.SaveGame();
         }
+
+        // 4. Cambiar a la escena de la casa/habitación
+        SceneManager.LoadScene(nombreDeLaEscenaDestino);
     }
+
 }

@@ -20,34 +20,42 @@ public class GameManager : MonoBehaviour
     public bool puzzle2Completado;
     public bool puzzle3Completado;
 
+    private static bool yaSeLimpioAlEmpezar = false;
+
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
 
-            // ESTO RESETEA TODO AL DARLE AL PLAY EN EL EDITOR
 #if UNITY_EDITOR
-            PlayerPrefs.DeleteAll();
-            ResetDatosLocales(); // Ponemos las variables a 0 manualmente
+            // Si es la primera vez que entramos (al darle al Play)
+            if (!yaSeLimpioAlEmpezar)
+            {
+                PlayerPrefs.DeleteAll();
+                ResetDatosLocales();
+                yaSeLimpioAlEmpezar = true; // Marcamos que ya se limpió
+                Debug.Log("Memoria limpiada por inicio de sesión de juego");
+            }
 #endif
 
             LoadGame();
         }
         else
         {
+            // Muy importante: Si ya existe un Manager (de la escena anterior), 
+            // destruimos el nuevo para quedarnos con el que ya tiene los datos.
             Destroy(gameObject);
         }
     }
 
-    // Método para asegurar que las variables se limpian en memoria
     private void ResetDatosLocales()
     {
         tiempoTranscurrido = 0f;
         puzzle1Completado = false;
         puzzle2Completado = false;
         puzzle3Completado = false;
+        playerPosition = Vector3.zero; // Reset de posición
         if (animalHealthData != null)
         {
             animalHealthData.currentHealth = animalHealthData.maxHealth;
@@ -62,7 +70,6 @@ public class GameManager : MonoBehaviour
     private void ActualizarCronometro()
     {
         tiempoTranscurrido += Time.deltaTime;
-
         if (textoTiempo != null)
         {
             int minutos = Mathf.FloorToInt(tiempoTranscurrido / 60);
@@ -73,6 +80,10 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
+        // Esta es la única línea nueva: preguntar al jugador dónde está antes de guardar
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) playerPosition = player.transform.position;
+
         if (animalHealthData != null)
             PlayerPrefs.SetFloat("AnimalHealth", animalHealthData.currentHealth);
 
@@ -83,7 +94,6 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Puzzle1", puzzle1Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle2", puzzle2Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle3", puzzle3Completado ? 1 : 0);
-
         PlayerPrefs.SetFloat("TiempoJuego", tiempoTranscurrido);
 
         PlayerPrefs.Save();
@@ -92,7 +102,6 @@ public class GameManager : MonoBehaviour
 
     public void LoadGame()
     {
-        // El segundo valor es el "por defecto" si no hay nada guardado
         if (animalHealthData != null)
             animalHealthData.currentHealth = PlayerPrefs.GetFloat("AnimalHealth", 100f);
 
@@ -105,7 +114,6 @@ public class GameManager : MonoBehaviour
         puzzle1Completado = PlayerPrefs.GetInt("Puzzle1", 0) == 1;
         puzzle2Completado = PlayerPrefs.GetInt("Puzzle2", 0) == 1;
         puzzle3Completado = PlayerPrefs.GetInt("Puzzle3", 0) == 1;
-
         tiempoTranscurrido = PlayerPrefs.GetFloat("TiempoJuego", 0f);
 
         Debug.Log("Partida Cargada");

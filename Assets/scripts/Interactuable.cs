@@ -23,22 +23,15 @@ public class InteractuarEscena : MonoBehaviour
 
     void Update()
     {
+        // Detectar interacción (Tecla F)
         if (jugadorCerca && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-
-            if (player != null)
+            // ACTUALIZACIÓN: Solo llamamos al GameManager.
+            // Él ya se encarga de buscar al jugador y guardar su posición actual.
+            if (GameManager.Instance != null)
             {
-                // Guardar posición antes de cambiar de escena
-                PlayerSave playerSave = player.GetComponent<PlayerSave>();
-                if (playerSave != null)
-                {
-                    playerSave.GuardarPosicion();
-                }
+                GameManager.Instance.SaveGame();
             }
-
-            // Guardar datos del juego
-            GameManager.Instance.SaveGame();
 
             // Cambiar de escena
             SceneManager.LoadScene(nombreDeLaEscenaDestino);

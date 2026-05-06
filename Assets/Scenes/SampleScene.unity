@@ -13861,7 +13861,6 @@ GameObject:
   - component: {fileID: 1997616563}
   - component: {fileID: 1997616562}
   - component: {fileID: 1997616561}
-  - component: {fileID: 1997616565}
   m_Layer: 0
   m_Name: Spritesheet_0
   m_TagString: Player
@@ -14072,18 +14071,6 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1997616565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997616557}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9db648bca1e67524ca983ff58b04190f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerSave
 --- !u!4 &2001334438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7238938162124257117, guid: e419ed0fb05741345bb8892ab8594c14, type: 3}
