@@ -11,7 +11,7 @@ public class ContadorPuzle : MonoBehaviour
 
     [Header("Retorno a Escena")]
     public string nombreEscenaPrincipal = "SampleScene";
-    public Vector3 posicionDeRegreso; // Pon aquí las coordenadas de la casa
+     // Pon aquí las coordenadas de la casa
 
     void Start()
     {
@@ -37,14 +37,11 @@ public class ContadorPuzle : MonoBehaviour
             if (GameManager.Instance != null)
             {
                 // 1. Marcar progreso
-                GameManager.Instance.puzzle3Completado = true;
+                GameManager.Instance.puzzle3Completado = true; 
 
                 // 2. Definir dónde aparece el jugador al volver
                 // Importante: Pon las coordenadas de la habitación donde esté el puzzle
-                GameManager.Instance.playerPosition = posicionDeRegreso;
-
-                // 3. Guardar partida
-                GameManager.Instance.SaveGame();
+                
             }
 
             // 4. Cambiar escena

@@ -10,6 +10,8 @@ public class PuertaFinal : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
+
         animator = GetComponent<Animator>();
 
         // 2. Si al volver de la escena el controlador se ha borrado, lo reponemos
@@ -26,19 +28,23 @@ public class PuertaFinal : MonoBehaviour
     {
         if (!abierta)
         {
+            
             ComprobarPuzzles();
         }
     }
 
     void ComprobarPuzzles()
     {
+        
         // Añadimos una protección extra por si el GameManager tarda en cargar
         if (GameManager.Instance != null)
         {
+            
             if (GameManager.Instance.puzzle1Completado &&
                 GameManager.Instance.puzzle2Completado &&
                 GameManager.Instance.puzzle3Completado)
             {
+                Debug.Log("segundo if");
                 AbrirPuerta();
             }
         }
@@ -48,15 +54,16 @@ public class PuertaFinal : MonoBehaviour
     {
         if (abierta) return; // Evita que se ejecute dos veces
         abierta = true;
-
+        Debug.Log("entra abrir puerta");
         if (animator != null)
         {
-            animator.SetTrigger("Abrir");
+            animator.SetBool("Abrir",true);
         }
 
         Collider2D col = GetComponent<Collider2D>();
         if (col != null) col.enabled = false;
 
-        Destroy(gameObject, 2f);
+        
+        Destroy(gameObject, 8f);
     }
 }

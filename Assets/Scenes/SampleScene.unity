@@ -4009,6 +4009,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!1 &401687690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1705347572388250380, guid: 61333559b2fae1341a8f452320ab5356, type: 3}
+  m_PrefabInstance: {fileID: 4882497882347226361}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &401687695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401687690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e73c8070d80d01c46821852da3826094, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PuertaFinal
+  controlador: {fileID: 9100000, guid: 753aef0ebf0d8004287f05af7578de92, type: 2}
 --- !u!1 &414213925
 GameObject:
   m_ObjectHideFlags: 0
@@ -4386,6 +4404,7 @@ MonoBehaviour:
   nombreDeLaEscenaDestino: puzle1
   luzInteraccion: {fileID: 1669536592}
   intensidadAlAcercarse: 1.5
+  posicionEnNuevaEscena: {x: 0, y: 0, z: 0}
 --- !u!61 &518278586
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4692,6 +4711,7 @@ MonoBehaviour:
   nombreDeLaEscenaDestino: puzle3
   luzInteraccion: {fileID: 414213926}
   intensidadAlAcercarse: 3
+  posicionEnNuevaEscena: {x: 0, y: 0, z: 0}
 --- !u!212 &525878919
 SpriteRenderer:
   serializedVersion: 2
@@ -13590,6 +13610,7 @@ MonoBehaviour:
   nombreDeLaEscenaDestino: puzle2
   luzInteraccion: {fileID: 1979970271}
   intensidadAlAcercarse: 3
+  posicionEnNuevaEscena: {x: 0, y: 0, z: 0}
 --- !u!212 &1887328810
 SpriteRenderer:
   serializedVersion: 2
@@ -13989,7 +14010,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: d5dfd911cd96946438f1a18eba89d2dc, type: 3}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -14004,7 +14025,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: 
+  m_DefaultActionMap: Movimiento
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!70 &1997616563
@@ -14208,7 +14229,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 1034982015
+  m_SortingLayerID: -881817
   m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!1 &2075278994
@@ -14537,10 +14558,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6831140887463565899, guid: 61333559b2fae1341a8f452320ab5356, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1705347572388250380, guid: 61333559b2fae1341a8f452320ab5356, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 401687695}
   m_SourcePrefab: {fileID: 100100000, guid: 61333559b2fae1341a8f452320ab5356, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

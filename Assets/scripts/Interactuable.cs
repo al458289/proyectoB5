@@ -10,6 +10,7 @@ public class InteractuarEscena : MonoBehaviour
     [Header("Configuración de Luz")]
     public Light2D luzInteraccion;
     public float intensidadAlAcercarse = 1.0f;
+    public Vector3 posicionEnNuevaEscena;
 
     private bool jugadorCerca = false;
 
@@ -30,6 +31,7 @@ public class InteractuarEscena : MonoBehaviour
             // Él ya se encarga de buscar al jugador y guardar su posición actual.
             if (GameManager.Instance != null)
             {
+                GameManager.Instance.playerPosition = posicionEnNuevaEscena;
                 GameManager.Instance.SaveGame();
             }
 
@@ -43,6 +45,7 @@ public class InteractuarEscena : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             jugadorCerca = true;
+            
 
             if (luzInteraccion != null)
             {

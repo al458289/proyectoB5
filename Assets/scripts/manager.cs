@@ -28,6 +28,11 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
 
+            // --- ESTA ES LA LÍNEA QUE HEMOS AÑADIDO ---
+            // Permite que el Manager te siga al laberinto/puzles sin borrarse.
+            // Cuando quites el modo Play, se destruirá automáticamente como tú quieres.
+            DontDestroyOnLoad(gameObject);
+
 #if UNITY_EDITOR
             // Si es la primera vez que entramos (al darle al Play)
             if (!yaSeLimpioAlEmpezar)
@@ -43,7 +48,7 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Muy importante: Si ya existe un Manager (de la escena anterior), 
+            // Si ya existe un Manager (de la escena anterior), 
             // destruimos el nuevo para quedarnos con el que ya tiene los datos.
             Destroy(gameObject);
         }
