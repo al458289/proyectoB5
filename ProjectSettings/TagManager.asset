@@ -44,11 +44,11 @@ TagManager:
   - name: suelo
     uniqueID: 168704025
     locked: 0
-  - name: player
-    uniqueID: 3220419113
-    locked: 0
   - name: arreglos
     uniqueID: 1601231939
+    locked: 0
+  - name: player
+    uniqueID: 3220419113
     locked: 0
   - name: paredes_fuera
     uniqueID: 1054105865
