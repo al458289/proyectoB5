@@ -11,6 +11,14 @@ public class agujero : MonoBehaviour
     private bool jugadorCerca = false;
     private bool yaSeActivo = false; // Para evitar que intente cargar la escena muchas veces
 
+    void Start()
+    {
+        string[] bienvenida2 = {
+        "Te  das  cuenta  que  hay  algo  que  parece  una  llave  y  dependiento  de  como  muevas  los  libros  puedes  sacarla  por  un  pequeño  agujero",
+        "¿Que  deberías  de  hacer?"
+    };
+        DialogueManager.Instance.ShowText(bienvenida2);
+    }
     void Update()
     {
         if (jugadorCerca && !yaSeActivo)
@@ -28,11 +36,6 @@ public class agujero : MonoBehaviour
             GameManager.Instance.puzzle2Completado = true;
 
             
-
-            // 2. Definimos dónde aparecerá el jugador en la casa
-            
-
-            // 3. Guardar partida para que el progreso persista
             
         }
 

@@ -16,6 +16,12 @@ public class ContadorPuzle : MonoBehaviour
     void Start()
     {
         ActualizarInterfaz();
+        Debug.Log("ha entrado1");
+        string[] bienvenida = {
+        "Apartas  un  par  de  libros  de  la  estantería,  ves  una  pregunta  muy  extraña  y  unos  botones  que  suben  y  bajan  la  cantidad.",
+        "¿Que  deberías  de  hacer?"
+    };
+        DialogueManager.Instance.ShowText(bienvenida);
     }
 
     public void SumarUno()

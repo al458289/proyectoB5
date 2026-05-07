@@ -18,6 +18,9 @@ public class Puzle2 : MonoBehaviour
     private ContactFilter2D filtroContacto;
     private RaycastHit2D[] resultados = new RaycastHit2D[1];
 
+    
+    
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

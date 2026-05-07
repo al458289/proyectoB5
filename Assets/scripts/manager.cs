@@ -22,6 +22,15 @@ public class GameManager : MonoBehaviour
 
     private static bool yaSeLimpioAlEmpezar = false;
 
+    void Start()
+    {
+        Debug.Log("ha entrado1");
+        string[] bienvenida = {
+        "Acabas  de  recuperar  la  conciencia,  estas  totalmente  perdido,   lo  unico  que  sabes  es  que  hay  un  lince  que  esta  muriendo  al  lado  tuya.",
+        "Debes  resolver  los  3  puzles  para  salir."
+    };
+        DialogueManager.Instance.ShowText(bienvenida);
+    }
     private void Awake()
     {
         if (Instance == null)

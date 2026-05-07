@@ -17,6 +17,12 @@ public class PlayerMovement : MonoBehaviour
 
         // Guardamos CÓMO es tu personaje al principio
         escalaOriginal = transform.localScale;
+        Debug.Log("ha entrado1");
+        string[] bienvenida = {
+        "Ves  un  tipo  de  juego  encima  de  la  mesilla,  te  das  cuenta  de  que  puedes  controlar  al  raton.",
+        "¿Que  deberías  de  hacer?"
+    };
+        DialogueManager.Instance.ShowText(bienvenida);
     }
 
     public void OnMove(InputValue value)
