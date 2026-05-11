@@ -1062,16 +1062,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101ae7db03965f14699ea8525aa5c2df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BotController
-  speed: 2
-  rotationSmoothTime: 0.15
-  target: {fileID: 1947278560}
-  rb: {fileID: 1068873846}
-  detectionDistance: 0.5
-  circleCastRadius: 0.3
+  detectionDistance: 1.5
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
-  timeForcedToAvoid: 0.8
+  rotationSmoothTime: 0.15
+  speed: 5
+  minDistance: 1
+  target: {fileID: 1947278560}
+  rb: {fileID: 1068873846}
 --- !u!50 &1068873846
 Rigidbody2D:
   serializedVersion: 5
@@ -1648,7 +1647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::QUESO
   nombreDeLaEscenaDestino: SampleScene
-  cantidadCuracion: 30
 --- !u!1 &1947278554
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,7 +1680,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d3d916c6c235a34db23bc49708e772e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  speed: 3
+  speed: 2
   enemigo: {fileID: 1068873845}
 --- !u!114 &1947278556
 MonoBehaviour:

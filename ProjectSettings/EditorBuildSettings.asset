@@ -23,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/puzle3.unity
     guid: f61113c2f701b4b408be3f716084ca4b
+  - enabled: 1
+    path: Assets/Scenes/puzle4.unity
+    guid: b7dc8913ff229564bb6654ea4aaf72dc
+  - enabled: 1
+    path: Assets/Scenes/puzle5.unity
+    guid: 1ffa8b9cb080d8d4a92d155ef0dd1953
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

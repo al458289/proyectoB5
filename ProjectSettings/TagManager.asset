@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Obstacle
   layers:
   - Default
   - TransparentFX
@@ -64,6 +65,9 @@ TagManager:
     locked: 0
   - name: interactuable
     uniqueID: 4294085479
+    locked: 0
+  - name: hud
+    uniqueID: 3185691411
     locked: 0
   - name: text_box
     uniqueID: 1034982015
