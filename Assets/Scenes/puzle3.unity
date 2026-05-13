@@ -528,6 +528,7 @@ MonoBehaviour:
   textoNumero: {fileID: 1532558114}
   valorActual: 10
   respuestaCorrecta: 15
+  nombreEscenaPrincipal: SampleScene
 --- !u!4 &1137547224
 Transform:
   m_ObjectHideFlags: 0
@@ -1213,8 +1214,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.012566, y: 0.000030518}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_AnchoredPosition: {x: 2.2, y: -8.83}
+  m_SizeDelta: {x: 1977.39, y: 1150.64}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1941985115
 MonoBehaviour:
@@ -1229,7 +1230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

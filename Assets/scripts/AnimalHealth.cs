@@ -14,6 +14,8 @@ public class AnimalHealth : MonoBehaviour
     private bool recompensaP1Entregada = false;
     private bool recompensaP2Entregada = false;
     private bool recompensaP3Entregada = false;
+    private bool recompensaP4Entregada = false;
+    private bool recompensaP5Entregada = false;
 
     private void Awake()
     {
@@ -90,10 +92,18 @@ public class AnimalHealth : MonoBehaviour
         {
             EjecutarCuracionRecompensa(ref recompensaP3Entregada);
         }
+        if (GameManager.Instance.puzzle4Completado && !recompensaP4Entregada)
+        {
+            EjecutarCuracionRecompensa(ref recompensaP4Entregada);
+        }
+        if (GameManager.Instance.puzzle5Completado && !recompensaP5Entregada)
+        {
+            EjecutarCuracionRecompensa(ref recompensaP5Entregada);
+        }
     }
     private void EjecutarCuracionRecompensa(ref bool controlBooleano)
     {
-        float cantidadCuracion = 20f;
+        float cantidadCuracion = 30f;
         data.currentHealth = Mathf.Min(data.currentHealth + cantidadCuracion, data.maxHealth);
         controlBooleano = true;
 

@@ -116,6 +116,7 @@ public class BotController : MonoBehaviour
         );
 
         rb.linearVelocity = smoothDir * speed;
+        
     }
 
     private void ControlRotation()

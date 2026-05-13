@@ -119,6 +119,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &287636614
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 287636615}
+  m_Layer: 0
+  m_Name: CONTROLAtexto
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &287636615
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287636614}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.40528, y: 0.56777, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &291621598
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,6 +391,7 @@ GameObject:
   - component: {fileID: 380047563}
   - component: {fileID: 380047562}
   - component: {fileID: 380047561}
+  - component: {fileID: 380047564}
   m_Layer: 5
   m_Name: Opcion1 (2)
   m_TagString: Untagged
@@ -430,7 +462,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 380047562}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 380047564}
+        m_TargetAssemblyTypeName: ControladorDePregunta, Assembly-CSharp
+        m_MethodName: SeleccionarOpcion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &380047562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -469,6 +513,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 380047559}
   m_CullTransparentMesh: 1
+--- !u!114 &380047564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 380047559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98465c5881af7d438a5fb8df839024e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorDePregunta
+  esLaOpcionCorrecta: 0
+  nombreEscenaSiguiente: SampleScene
 --- !u!1 &575219944
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,6 +539,7 @@ GameObject:
   - component: {fileID: 575219948}
   - component: {fileID: 575219947}
   - component: {fileID: 575219946}
+  - component: {fileID: 575219949}
   m_Layer: 5
   m_Name: Opcion1 (1)
   m_TagString: Untagged
@@ -551,7 +610,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 575219947}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 575219949}
+        m_TargetAssemblyTypeName: ControladorDePregunta, Assembly-CSharp
+        m_MethodName: SeleccionarOpcion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &575219947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +661,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 575219944}
   m_CullTransparentMesh: 1
+--- !u!114 &575219949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 575219944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98465c5881af7d438a5fb8df839024e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorDePregunta
+  esLaOpcionCorrecta: 0
+  nombreEscenaSiguiente: SampleScene
 --- !u!1 &579492463
 GameObject:
   m_ObjectHideFlags: 0
@@ -1092,6 +1177,7 @@ GameObject:
   - component: {fileID: 1072611617}
   - component: {fileID: 1072611616}
   - component: {fileID: 1072611615}
+  - component: {fileID: 1072611618}
   m_Layer: 5
   m_Name: Opcion1
   m_TagString: Untagged
@@ -1162,7 +1248,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1072611616}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1072611618}
+        m_TargetAssemblyTypeName: ControladorDePregunta, Assembly-CSharp
+        m_MethodName: SeleccionarOpcion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1072611616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1201,6 +1299,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1072611613}
   m_CullTransparentMesh: 1
+--- !u!114 &1072611618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1072611613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98465c5881af7d438a5fb8df839024e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorDePregunta
+  esLaOpcionCorrecta: 0
+  nombreEscenaSiguiente: SampleScene
 --- !u!1 &1474276580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1363,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1288,6 +1400,7 @@ GameObject:
   - component: {fileID: 1549438424}
   - component: {fileID: 1549438423}
   - component: {fileID: 1549438422}
+  - component: {fileID: 1549438425}
   m_Layer: 5
   m_Name: Opcion1 (3)
   m_TagString: Untagged
@@ -1358,7 +1471,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1549438423}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1549438425}
+        m_TargetAssemblyTypeName: ControladorDePregunta, Assembly-CSharp
+        m_MethodName: SeleccionarOpcion
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1549438423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1397,6 +1522,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1549438420}
   m_CullTransparentMesh: 1
+--- !u!114 &1549438425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1549438420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d98465c5881af7d438a5fb8df839024e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorDePregunta
+  esLaOpcionCorrecta: 1
+  nombreEscenaSiguiente: SampleScene
 --- !u!1 &1797978244
 GameObject:
   m_ObjectHideFlags: 0
@@ -1740,3 +1879,4 @@ SceneRoots:
   - {fileID: 2031644385}
   - {fileID: 579492466}
   - {fileID: 1815838620}
+  - {fileID: 287636615}

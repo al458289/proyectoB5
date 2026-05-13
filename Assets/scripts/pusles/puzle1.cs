@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
 
         string[] bienvenida = {
             "Ves un tipo de juego encima de la mesilla, te das cuenta de que puedes controlar al raton.",
+            "PERO ten cuidado ya que al observarlo te das cuenta que hay un laser rojo...",
             "¿Que deberías de hacer?"
         };
         DialogueManager.Instance.ShowText(bienvenida);

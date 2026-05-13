@@ -19,6 +19,8 @@ public class GameManager : MonoBehaviour
     public bool puzzle1Completado;
     public bool puzzle2Completado;
     public bool puzzle3Completado;
+    public bool puzzle4Completado;
+    public bool puzzle5Completado;// <--- AÑADIDO
 
     private static bool yaSeLimpioAlEmpezar = false;
 
@@ -26,11 +28,12 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("ha entrado1");
         string[] bienvenida = {
-        "Acabas  de  recuperar  la  conciencia,  estas  totalmente  perdido,   lo  unico  que  sabes  es  que  hay  un  lince  que  esta  muriendo  al  lado  tuya.",
-        "Debes  resolver  los  3  puzles  para  salir."
+        "Acabas  de  recuperar  la  conciencia,  estas  totalmente  perdido,   lo  unico  que  sabes   es  que  hay  un  lince  que  esta  muriendo  al  lado  tuya.",
+        "Si  quieres  salvarlo  y  salir de aqui deberas  hacer  los   puzles,  con   ellos  conseguiras  curarle  un  poco."
     };
         DialogueManager.Instance.ShowText(bienvenida);
     }
+
     private void Awake()
     {
         if (Instance == null)
@@ -69,6 +72,8 @@ public class GameManager : MonoBehaviour
         puzzle1Completado = false;
         puzzle2Completado = false;
         puzzle3Completado = false;
+        puzzle4Completado = false;
+        puzzle5Completado = false;// <--- AÑADIDO
         playerPosition = Vector3.zero; // Reset de posición
         if (animalHealthData != null)
         {
@@ -108,6 +113,8 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Puzzle1", puzzle1Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle2", puzzle2Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle3", puzzle3Completado ? 1 : 0);
+        PlayerPrefs.SetInt("Puzzle4", puzzle4Completado ? 1 : 0);
+        PlayerPrefs.SetInt("Puzzle5", puzzle5Completado ? 1 : 0);// <--- AÑADIDO
         PlayerPrefs.SetFloat("TiempoJuego", tiempoTranscurrido);
 
         PlayerPrefs.Save();
@@ -128,6 +135,8 @@ public class GameManager : MonoBehaviour
         puzzle1Completado = PlayerPrefs.GetInt("Puzzle1", 0) == 1;
         puzzle2Completado = PlayerPrefs.GetInt("Puzzle2", 0) == 1;
         puzzle3Completado = PlayerPrefs.GetInt("Puzzle3", 0) == 1;
+        puzzle4Completado = PlayerPrefs.GetInt("Puzzle4", 0) == 1;
+        puzzle5Completado = PlayerPrefs.GetInt("Puzzle5", 0) == 1;// <--- AÑADIDO
         tiempoTranscurrido = PlayerPrefs.GetFloat("TiempoJuego", 0f);
 
         Debug.Log("Partida Cargada");
