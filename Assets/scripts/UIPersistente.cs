@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Necesario para detectar la escena
 
 public class UIPersistente : MonoBehaviour
 {
@@ -13,6 +14,16 @@ public class UIPersistente : MonoBehaviour
         }
         else
         {
+            Destroy(gameObject);
+        }
+    }
+
+    private void Update()
+    {
+        // Si entramos en la escena de Game Over, destruimos toda la UI persistente
+        if (SceneManager.GetActiveScene().name == "GameOver")
+        {
+            Instance = null; // Limpiamos la referencia estática
             Destroy(gameObject);
         }
     }

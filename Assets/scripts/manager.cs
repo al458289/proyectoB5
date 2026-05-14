@@ -1,5 +1,6 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,10 @@ public class GameManager : MonoBehaviour
 
     private static bool yaSeLimpioAlEmpezar = false;
 
+    [Header("Resultados Última Partida")]
+    public float tiempoFinalPartida;
+    public float vidaFinalPartida;
+
     void Start()
     {
         Debug.Log("ha entrado1");
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        SceneManager.sceneLoaded += AlCargarEscena;
         if (Instance == null)
         {
             Instance = this;
@@ -65,8 +71,22 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void AlCargarEscena(Scene escena, LoadSceneMode modo)
+    {
+        
+        if (escena.name != "GameOver")
+        {
+            
+            GameObject obj = GameObject.Find("tiempoTexto");
+            if (obj != null)
+            {
+                textoTiempo = obj.GetComponent<TextMeshProUGUI>();
+                Debug.Log("Texto del cronómetro reconectado.");
+            }
+        }
+    }
 
-    private void ResetDatosLocales()
+    public void ResetDatosLocales()
     {
         tiempoTranscurrido = 0f;
         puzzle1Completado = false;
@@ -83,7 +103,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        ActualizarCronometro();
+        if (SceneManager.GetActiveScene().name != "GameOver")
+        {
+            ActualizarCronometro();
+        }
     }
 
     private void ActualizarCronometro()
@@ -140,5 +163,42 @@ public class GameManager : MonoBehaviour
         tiempoTranscurrido = PlayerPrefs.GetFloat("TiempoJuego", 0f);
 
         Debug.Log("Partida Cargada");
+    }
+    
+
+    public void PrepararGameOver()
+    {
+        // 1. Guardamos los datos actuales en nuestras variables de "resultado"
+        tiempoFinalPartida = tiempoTranscurrido;
+
+        if (animalHealthData != null)
+        {
+            vidaFinalPartida = animalHealthData.currentHealth;
+        }
+
+        // 2. Reseteamos el progreso del juego para la siguiente vez
+        puzzle1Completado = false;
+        puzzle2Completado = false;
+        puzzle3Completado = false;
+        puzzle4Completado = false;
+        puzzle5Completado = false;
+
+        playerPosition = new Vector3(
+            PlayerPrefs.GetFloat("PlayerX", 0),
+            PlayerPrefs.GetFloat("PlayerY", 0),
+            PlayerPrefs.GetFloat("PlayerZ", 0)
+        );
+
+        if (animalHealthData != null)
+            animalHealthData.currentHealth = PlayerPrefs.GetFloat("AnimalHealth", 100f);
+
+        // Reseteamos el cronómetro principal para que empiece de 0 al reintentar
+        tiempoTranscurrido = 0f;
+
+        // 3. Limpiamos los PlayerPrefs de progreso para que no cargue puzles hechos
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+
+        Debug.Log("Datos guardados en variables: Tiempo " + tiempoFinalPartida + " - Vida " + vidaFinalPartida);
     }
 }

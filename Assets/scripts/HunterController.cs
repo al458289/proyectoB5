@@ -19,27 +19,57 @@ public class HunterController : MonoBehaviour
     private float avoidanceForcedTimer = 0f;
     private Vector2 chosenAvoidanceDir;
 
+    // Singleton para que la puerta lo encuentre
+    public static HunterController Instance;
+
     private bool hasStarted = false;
     private Vector2 currentVelocitySmoothDamp;
 
+    // Referencias a componentes para ocultar/mostrar
+    private SpriteRenderer spriteRenderer;
+    private Collider2D hunterCollider;
+
+    void Awake()
+    {
+        // Asignamos la instancia inmediatamente
+        Instance = this;
+
+        // Obtenemos los componentes necesarios para ocultar al enemigo
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        hunterCollider = GetComponent<Collider2D>();
+    }
+
     void Start()
     {
-        // Al empezar, el enemigo se desactiva a sí mismo
-        // para esperar la señal de la puerta.
-        gameObject.SetActive(false);
+        // IMPORTANTE: No usamos SetActive(false) porque mataría el script.
+        // En su lugar, lo hacemos invisible y sin colisiones.
+        SetHunterVisible(false);
         hasStarted = false;
+
+        if (rb != null) rb.bodyType = RigidbodyType2D.Dynamic;
     }
 
     // ESTA FUNCIÓN ES LA QUE LLAMA LA PUERTA
     public void ActivarPersecucion()
     {
-        gameObject.SetActive(true); // Se hace visible y empieza a ejecutar Update
+        SetHunterVisible(true);
         hasStarted = true;
-        Debug.Log("¡El enemigo ha aparecido en su posición predefinida!");
+        Debug.Log("¡El enemigo ha aparecido y comienza la persecución!");
+    }
+
+    // Método para ocultar/mostrar visualmente y físicamente
+    private void SetHunterVisible(bool visible)
+    {
+        if (spriteRenderer != null) spriteRenderer.enabled = visible;
+        if (hunterCollider != null) hunterCollider.enabled = visible;
+
+        // Si tienes hijos con luces o partículas, podrías desactivarlos aquí también
+        // foreach (Transform child in transform) child.gameObject.SetActive(visible);
     }
 
     void FixedUpdate()
     {
+        // Si no ha empezado o no tiene target, no hace nada
         if (!hasStarted || target == null)
         {
             if (rb != null) rb.linearVelocity = Vector2.zero;
@@ -87,13 +117,14 @@ public class HunterController : MonoBehaviour
 
     private void MoveBot(Vector2 direction)
     {
+        if (rb == null) return;
         Vector2 smoothDir = Vector2.SmoothDamp(rb.linearVelocity.normalized, direction, ref currentVelocitySmoothDamp, rotationSmoothTime);
         rb.linearVelocity = smoothDir * speed;
     }
 
     private void ControlRotation()
     {
-        if (rb.linearVelocity.magnitude > 0.1f)
+        if (rb != null && rb.linearVelocity.magnitude > 0.1f)
         {
             float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -102,9 +133,15 @@ public class HunterController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        // Solo matamos al jugador si la persecución ha empezado
+        if (hasStarted && collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (GameManager.Instance != null)
+            {
+                // 1. Limpiamos variables y borramos PlayerPrefs
+                GameManager.Instance.PrepararGameOver();
+            }
+            SceneManager.LoadScene("GameOver");
         }
     }
 }

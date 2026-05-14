@@ -134,8 +134,8 @@ public class BotController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("¡Cazado!");
-
             
+
             SceneManager.LoadScene("SampleScene");
 
             

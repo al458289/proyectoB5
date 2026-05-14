@@ -4,9 +4,11 @@ public class Puerta2 : MonoBehaviour
 {
     private Animator animator;
     private bool abierta = false;
+    
 
     // 1. Añade esta línea para guardar el archivo del Animator
     public RuntimeAnimatorController controlador;
+
 
     void Start()
     {
@@ -64,5 +66,6 @@ public class Puerta2 : MonoBehaviour
 
 
         Destroy(gameObject, 8f);
+        HunterController.Instance.ActivarPersecucion();
     }
 }
