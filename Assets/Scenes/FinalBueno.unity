@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TIEMPO:'
+  m_text: 'TIME:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
@@ -313,7 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Le has salvado!
+  m_text: you  save  him!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Puntos:'
+  m_text: 'POINTS:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}

@@ -34,8 +34,8 @@ public class GameManager : MonoBehaviour
     {
         
         string[] bienvenida = {
-        "Acabas  de  recuperar  la  conciencia,  estas  totalmente  perdido,   lo  unico  que  sabes   es  que  hay  un  lince  que  esta  muriendo  al  lado  tuya.",
-        "Si  quieres  salvarlo  y  salir de aqui deberas  hacer  los   puzles,  con   ellos  conseguiras  curarle  un  poco. Puedes  observar  cuantos  puzles  has  completado."
+        "You   slowly   open   your   eyes.   Everything   around   you   feels   strange   and   unfamiliar.   Next   to   you   lies   a   lynx,   tired   and   weak. (PRESS  ENTER)",
+        "To   help   the   lynx   and   escape   this   place,   you   must   solve   the   puzzles   ahead.   Each   one   will   help   it   regain   its   strength.  (F  TO  INTERACT  WITH  OBJECTS) ",
     };
         DialogueManager.Instance.ShowText(bienvenida);
     }

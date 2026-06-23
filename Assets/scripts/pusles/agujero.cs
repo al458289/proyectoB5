@@ -14,8 +14,8 @@ public class agujero : MonoBehaviour
     void Start()
     {
         string[] bienvenida2 = {
-        "Te  das  cuenta  que  hay  algo  que  parece  una  llave  y  dependiento  de  como  muevas  los  libros  puedes  sacarla  por  un  pequeño  agujero",
-        "¿Que  deberías  de  hacer?"
+        "You   notice   something   that   looks   like   a   key.   By   moving   the   books   around,   you   might   be   able   to   guide   it   through   a   small   hole. (CLICK  AND  MOVE  THE  MOUSE)",
+        "What   should   you   do?"
     };
         DialogueManager.Instance.ShowText(bienvenida2);
     }

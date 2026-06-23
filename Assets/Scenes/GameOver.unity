@@ -279,6 +279,7 @@ GameObject:
   m_Component:
   - component: {fileID: 377247466}
   - component: {fileID: 377247465}
+  - component: {fileID: 377247467}
   m_Layer: 0
   m_Name: UI_manager
   m_TagString: Untagged
@@ -298,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de4725fb4826cb44a822c6f0d27487b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuUI
-  gameSceneName: Primera escena
+  gameSceneName: primera escena
   creditsSceneName: 03_Credits
 --- !u!4 &377247466
 Transform:
@@ -315,6 +316,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377247467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377247464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7f4da462fef3c645ae4767e123d0576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::gameover
 --- !u!1 &496262647
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +935,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\xA1Puedes  volver  a Intentarlo!"
+  m_text: You can always try again!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
@@ -1192,7 +1205,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'TIEMPO: '
+  m_text: 'time:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
@@ -1558,7 +1571,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'puntos:'
+  m_text: 'points:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}
   m_sharedMaterial: {fileID: 4647946534251601876, guid: ab0b399c4d00f1a46b094ca9500f5da9, type: 2}

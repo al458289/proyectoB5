@@ -22,9 +22,9 @@ public class PlayerMovement : MonoBehaviour
         escalaOriginal = transform.localScale;
 
         string[] bienvenida = {
-            "Ves  un  tipo  de  juego  encima  de  la  mesilla,  te  das  cuenta  de  que  puedes  controlar  al  raton.",
-            "PERO  ten  cuidado  ya  que  al  observarlo  te  das  cuenta  que  hay  un  laser  rojo,  tienes  que  intentar  despistarlo. ",
-            "¿Que  deberías  de  hacer?"
+            "You   notice   a   strange   game   resting   on   the   table.   As   you   look   closer,   you   realize   you   can   control   the   mouse.",
+            "But   be   careful.   A   red   laser   is   watching   it,   and   you'll   need   to   distract   it   if   you   want   to   succeed. ",
+            "What   should   you   do?"
         };
         DialogueManager.Instance.ShowText(bienvenida);
     }

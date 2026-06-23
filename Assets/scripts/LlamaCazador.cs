@@ -25,8 +25,8 @@ public class LlamaCazador : MonoBehaviour
     private void LlegandoAlFinal()
     {
         string[] bienvenida = {
-            "El  lince  ya  se  ha  marchado  y  esta  a  salvo  fuera  de  la  casa  pero  de  repente  escuchas  que  el  cazador  esta  viniendo",
-            "Si  no  consigues  salir  de  aqui  el  cazador  te  atrapara  a  ti  y  al  lince"
+            "The   lynx   has   escaped   and   is   finally   safe. But   before   you   can   relax,   you   hear   heavy   footsteps   approaching.   The   hunter   is   coming...   and   he's   getting   closer.",
+            "You   must   escape   the   house   before   the   hunter   catches   you.   If   you   fail,   everything   you   have   done   to   save   the   lynx   will   have   been   for   nothing."
         };
         DialogueManager.Instance.ShowText(bienvenida);
 

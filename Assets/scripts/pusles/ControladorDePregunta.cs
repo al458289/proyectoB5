@@ -5,7 +5,7 @@ public class ControladorDePregunta : MonoBehaviour
 {
     [Header("Configuración")]
     public bool esLaOpcionCorrecta;
-    public string nombreEscenaSiguiente; 
+    public string nombreEscenaSiguiente;
 
     
     public void SeleccionarOpcion()

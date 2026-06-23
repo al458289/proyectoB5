@@ -18,8 +18,8 @@ public class ContadorPuzle : MonoBehaviour
         ActualizarInterfaz();
         
         string[] bienvenida = {
-        "Apartas  un  par  de  libros  de  la  estantería,  ves  una  pregunta  muy  extraña  y  unos  botones  que  suben  y  bajan  la  cantidad.",
-        "¿Que  deberías  de  hacer?"
+        "After   moving   a   few   books   aside,   you   discover   a   strange   question   and   a   set   of   buttons   that   increase   or   decrease   a   number.",
+        "What   should   you   do?"
     };
         DialogueManager.Instance.ShowText(bienvenida);
     }

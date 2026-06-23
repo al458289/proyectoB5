@@ -7,7 +7,7 @@ public class puzle4 : MonoBehaviour
     {
 
         string[] bienvenida = {
-            "Ves  4  botones  con  un  texto  encima,  puedes  elegir  cualquiera  de  las  opciones  solo  le  curará  una  de  ellas.",
+            "You   see   four   buttons,   each   with   a   different   message.   Only   one   of   them   will   help   the   lynx   recover.",
             "¿Que  deberías  de  hacer?"
         };
         DialogueManager.Instance.ShowText(bienvenida);
