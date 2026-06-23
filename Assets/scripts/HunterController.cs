@@ -1,13 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(Animator), typeof(SpriteRenderer))]
 public class HunterController : MonoBehaviour
 {
-    [Header("Configuración Básica")]
+    [Header("Configuración de Movimiento")]
     [SerializeField] private float speed = 4f;
-    [SerializeField] private float rotationSmoothTime = 0.05f;
     [SerializeField] private Transform target;
-    [SerializeField] private Rigidbody2D rb;
 
     [Header("Radar (Evitar Obstáculos)")]
     [SerializeField] private float detectionDistance = 1.2f;
@@ -15,132 +14,138 @@ public class HunterController : MonoBehaviour
     [SerializeField] private LayerMask obstacleLayer;
 
     [Header("Evasión")]
-    [SerializeField] private float timeForcedToAvoid = 0.8f;
-    private float avoidanceForcedTimer = 0f;
-    private Vector2 chosenAvoidanceDir;
+    [SerializeField] private float timeForcedToAvoid = 0.6f;
 
-    // Singleton para que la puerta lo encuentre
-    public static HunterController Instance;
-
-    private bool hasStarted = false;
-    private Vector2 currentVelocitySmoothDamp;
-
-    // Referencias a componentes para ocultar/mostrar
+    private Rigidbody2D rb;
+    private Animator animator;
     private SpriteRenderer spriteRenderer;
     private Collider2D hunterCollider;
 
+    private bool hasStarted = false;
+    private float avoidanceForcedTimer = 0f;
+    private Vector2 chosenAvoidanceDir;
+
     void Awake()
     {
-        // Asignamos la instancia inmediatamente
-        Instance = this;
-
-        // Obtenemos los componentes necesarios para ocultar al enemigo
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         hunterCollider = GetComponent<Collider2D>();
+        rb.freezeRotation = true;
     }
 
     void Start()
     {
-        // IMPORTANTE: No usamos SetActive(false) porque mataría el script.
-        // En su lugar, lo hacemos invisible y sin colisiones.
-        SetHunterVisible(false);
-        hasStarted = false;
-
-        if (rb != null) rb.bodyType = RigidbodyType2D.Dynamic;
-    }
-
-    // ESTA FUNCIÓN ES LA QUE LLAMA LA PUERTA
-    public void ActivarPersecucion()
-    {
-        SetHunterVisible(true);
-        hasStarted = true;
-        Debug.Log("¡El enemigo ha aparecido y comienza la persecución!");
-    }
-
-    // Método para ocultar/mostrar visualmente y físicamente
-    private void SetHunterVisible(bool visible)
-    {
-        if (spriteRenderer != null) spriteRenderer.enabled = visible;
-        if (hunterCollider != null) hunterCollider.enabled = visible;
-
-        // Si tienes hijos con luces o partículas, podrías desactivarlos aquí también
-        // foreach (Transform child in transform) child.gameObject.SetActive(visible);
+        SetHunterActive(false);
     }
 
     void FixedUpdate()
     {
-        // Si no ha empezado o no tiene target, no hace nada
-        if (!hasStarted || target == null)
+        if (!hasStarted)
         {
-            if (rb != null) rb.linearVelocity = Vector2.zero;
+            CheckActivation();
             return;
         }
 
-        Vector2 dirToTarget = (target.position - transform.position).normalized;
+        if (target == null) return;
 
-        // Lógica de evasión de obstáculos
+        HandleMovement();
+    }
+
+    private void CheckActivation()
+    {
+        if (GameManager.Instance.puzzle5Completado && GameManager.Instance.puzzle4Completado&& GameManager.Instance.textoEnseñado)
+        {
+            SetHunterActive(true);
+            hasStarted = true;
+        }
+    }
+
+    private void HandleMovement()
+    {
+        Vector2 dirToTarget = (target.position - transform.position).normalized;
+        Vector2 finalMoveDir;
+
         if (avoidanceForcedTimer > 0)
         {
             avoidanceForcedTimer -= Time.fixedDeltaTime;
-            MoveBot(chosenAvoidanceDir);
-            ControlRotation();
-            return;
-        }
-
-        RaycastHit2D hitCenter = Physics2D.CircleCast(transform.position, circleCastRadius, dirToTarget, detectionDistance, obstacleLayer);
-
-        if (hitCenter.collider != null)
-        {
-            Vector2 left60Dir = Quaternion.Euler(0, 0, 60) * dirToTarget;
-            Vector2 right60Dir = Quaternion.Euler(0, 0, -60) * dirToTarget;
-            Vector2 perpendicular = Vector2.Perpendicular(hitCenter.normal);
-            float dot = Vector2.Dot(perpendicular, dirToTarget);
-            Vector2 wallPerpendicularDir = perpendicular * (dot > 0 ? 1 : -1);
-
-            chosenAvoidanceDir = ChooseBestDirection(left60Dir, right60Dir, wallPerpendicularDir);
-            avoidanceForcedTimer = timeForcedToAvoid;
+            finalMoveDir = chosenAvoidanceDir;
         }
         else
         {
-            MoveBot(dirToTarget);
+            RaycastHit2D hit = Physics2D.CircleCast(transform.position, circleCastRadius, dirToTarget, detectionDistance, obstacleLayer);
+
+            if (hit.collider != null)
+            {
+                finalMoveDir = CalculateAvoidance(dirToTarget, hit.normal);
+                chosenAvoidanceDir = finalMoveDir;
+                avoidanceForcedTimer = timeForcedToAvoid;
+            }
+            else
+            {
+                finalMoveDir = dirToTarget;
+            }
         }
 
-        ControlRotation();
+        ApplyMovementAndVisuals(finalMoveDir);
     }
 
-    private Vector2 ChooseBestDirection(Vector2 d1, Vector2 d2, Vector2 d3)
+    private void ApplyMovementAndVisuals(Vector2 moveDir)
     {
-        if (Physics2D.Raycast(transform.position, d1, detectionDistance, obstacleLayer).collider == null) return d1;
-        if (Physics2D.Raycast(transform.position, d2, detectionDistance, obstacleLayer).collider == null) return d2;
-        return d3;
-    }
+        rb.linearVelocity = moveDir * speed;
 
-    private void MoveBot(Vector2 direction)
-    {
-        if (rb == null) return;
-        Vector2 smoothDir = Vector2.SmoothDamp(rb.linearVelocity.normalized, direction, ref currentVelocitySmoothDamp, rotationSmoothTime);
-        rb.linearVelocity = smoothDir * speed;
-    }
+        float h = moveDir.x;
+        float v = moveDir.y;
+        float currentSpeedSqr = moveDir.sqrMagnitude;
 
-    private void ControlRotation()
-    {
-        if (rb != null && rb.linearVelocity.magnitude > 0.1f)
+        
+        animator.SetFloat("Speed", currentSpeedSqr > 0.01f ? 1f : 0f);
+
+        
+        if (currentSpeedSqr > 0.01f)
         {
-            float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
-            transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+            
+            if (Mathf.Abs(h) > Mathf.Abs(v))
+            {
+                
+                animator.SetFloat("Horizontal", h > 0 ? 1 : -1);
+                animator.SetFloat("Vertical", 0);
+
+                
+                spriteRenderer.flipX = h < 0;
+            }
+            else
+            {
+                
+                animator.SetFloat("Horizontal", 0);
+                animator.SetFloat("Vertical", v > 0 ? 1 : -1);
+
+                
+                spriteRenderer.flipX = false;
+            }
         }
+    }
+
+    private Vector2 CalculateAvoidance(Vector2 currentDir, Vector2 hitNormal)
+    {
+        Vector2 perpendicular = Vector2.Perpendicular(hitNormal);
+        float dot = Vector2.Dot(perpendicular, currentDir);
+        return perpendicular * (dot > 0 ? 1 : -1);
+    }
+
+    private void SetHunterActive(bool active)
+    {
+        spriteRenderer.enabled = active;
+        hunterCollider.enabled = active;
+        if (!active) rb.linearVelocity = Vector2.zero;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Solo matamos al jugador si la persecución ha empezado
         if (hasStarted && collision.gameObject.CompareTag("Player"))
         {
-            if (GameManager.Instance != null)
-            {
-                // 1. Limpiamos variables y borramos PlayerPrefs
-                GameManager.Instance.PrepararGameOver();
-            }
+            GameManager.Instance?.PrepararGameOver();
+            
             SceneManager.LoadScene("GameOver");
         }
     }

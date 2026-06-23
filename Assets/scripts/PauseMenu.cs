@@ -58,6 +58,6 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         Application.Quit();
-        Debug.Log("Saliendo del juego...");
+        
     }
 }

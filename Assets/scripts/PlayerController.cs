@@ -13,9 +13,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        // --- FIX CRÍTICO ---
-        // Forzamos que el tiempo corra. Si un puzzle puso Time.timeScale = 0,
-        // esto lo arregla en cuanto aparece el jugador.
+        
         Time.timeScale = 1f;
 
         rb = GetComponent<Rigidbody2D>();
@@ -25,7 +23,7 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = 0f;
         rb.freezeRotation = true;
 
-        // Forzamos la carga de posición
+        
         CargarPosicionDesdeManager();
     }
 
@@ -33,16 +31,16 @@ public class PlayerController : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            // Desactivamos momentáneamente para evitar conflictos con colisiones al "teletransportar"
+            
             rb.simulated = false;
             transform.position = GameManager.Instance.playerPosition;
             rb.simulated = true;
 
-            Debug.Log("Jugador posicionado en: " + transform.position);
+            
         }
     }
 
-    // Este es el método que llama el "Player Input" (Behavior: Send Messages)
+    
     public void OnMove(InputValue value)
     {
         movementInput = value.Get<Vector2>();
@@ -50,8 +48,7 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Si el tiempo está en 0 (pausa), FixedUpdate NO se ejecuta.
-        // Al poner Time.timeScale = 1 en el Start, esto volverá a funcionar.
+        
         rb.linearVelocity = movementInput * moveSpeed;
 
         ActualizarAnimaciones();

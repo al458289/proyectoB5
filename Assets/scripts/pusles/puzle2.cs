@@ -14,7 +14,7 @@ public class Puzle2 : MonoBehaviour
     private Vector2 offset;
     private float posicionEjeFijo;
 
-    // Filtro para que el rayo solo choque con lo que queremos
+    
     private ContactFilter2D filtroContacto;
     private RaycastHit2D[] resultados = new RaycastHit2D[1];
 
@@ -30,7 +30,7 @@ public class Puzle2 : MonoBehaviour
         rb.bodyType = RigidbodyType2D.Kinematic;
         rb.useFullKinematicContacts = true;
 
-        // Configuramos el filtro para que detecte cualquier Collider2D
+        
         filtroContacto = new ContactFilter2D();
         filtroContacto.useTriggers = false;
     }
@@ -70,7 +70,7 @@ public class Puzle2 : MonoBehaviour
 
         if (distancia > 0.01f)
         {
-            // Tiramos la caja pero ignorando nuestra propia pieza
+            
             int choques = col.Cast(direccion.normalized, filtroContacto, resultados, distancia);
 
             if (choques == 0)
@@ -79,7 +79,7 @@ public class Puzle2 : MonoBehaviour
             }
             else
             {
-                // Si choca, nos movemos solo la distancia permitida
+                
                 float distanciaSegura = resultados[0].distance;
                 rb.MovePosition(rb.position + direccion.normalized * (distanciaSegura - 0.02f));
             }

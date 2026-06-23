@@ -1,5 +1,7 @@
-using UnityEngine;
 using System;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AnimalHealth : MonoBehaviour
 {
@@ -8,17 +10,21 @@ public class AnimalHealth : MonoBehaviour
     public static event Action<float, float> OnAnimalHealthChanged;
     public static event Action OnAnimalHealedVisual;
     public static AnimalHealth Instance;
+    public TextMeshProUGUI TextoPuzles;
+    public int puzles;
+    
 
     // Control para curar solo una vez por puzle
-    
-    private bool recompensaP1Entregada = false;
-    private bool recompensaP2Entregada = false;
-    private bool recompensaP3Entregada = false;
-    private bool recompensaP4Entregada = false;
-    private bool recompensaP5Entregada = false;
+
+    public bool recompensaP1Entregada = false;
+    public bool recompensaP2Entregada = false;
+    public bool recompensaP3Entregada = false;
+    public bool recompensaP4Entregada = false;
+    public bool recompensaP5Entregada = false;
 
     private void Awake()
-    {
+    {   
+
         if (Instance == null)
 
         {
@@ -29,7 +35,7 @@ public class AnimalHealth : MonoBehaviour
 
 
 
-            // ESTO reseteará la vida a 100 cada vez que pulses "Play" en el editor
+            
 
 #if UNITY_EDITOR
 
@@ -52,17 +58,39 @@ public class AnimalHealth : MonoBehaviour
             Destroy(gameObject);
 
         }
+        
 
+        TextoPuzles.text = string.Format("P:" + puzles.ToString());
+
+
+    }
+    public void buscarTexto()
+    {
+        GameObject obj = GameObject.Find("puzlesCompletados");
+        if (obj != null)
+        {
+            TextoPuzles = obj.GetComponent<TextMeshProUGUI>();
+
+        }
+    }
+
+    public void resetDatos()
+    {
+        recompensaP1Entregada = false;
+        recompensaP2Entregada = false;
+        recompensaP3Entregada = false;
+        recompensaP4Entregada = false;
+        recompensaP5Entregada = false;
     }
 
     private void Update()
     {
         if (data != null && data.currentHealth > 0)
         {
-            // 1. LÓGICA DE CURACIÓN POR PUZLE
+            
             ComprobarRecompensasPuzles();
 
-            // 2. LÓGICA DEL VENENO (Tu código actual)
+            
             data.currentHealth -= poisonDamagePerSecond * Time.deltaTime;
             data.currentHealth = Mathf.Max(data.currentHealth, 0);
             OnAnimalHealthChanged?.Invoke(data.currentHealth, data.maxHealth);
@@ -72,33 +100,49 @@ public class AnimalHealth : MonoBehaviour
             Die();
         }
     }
+    
 
     private void ComprobarRecompensasPuzles()
     {
         if (GameManager.Instance == null) return;
 
-        // Puzle 1
+        
         if (GameManager.Instance.puzzle1Completado && !recompensaP1Entregada)
         {
             EjecutarCuracionRecompensa(ref recompensaP1Entregada);
+            puzles += 1;
+
+            TextoPuzles.text = string.Format("P:" + puzles.ToString());
         }
-        // Puzle 2
+        
         if (GameManager.Instance.puzzle2Completado && !recompensaP2Entregada)
         {
             EjecutarCuracionRecompensa(ref recompensaP2Entregada);
+            puzles += 1;
+
+            TextoPuzles.text = string.Format("P:" + puzles.ToString());
         }
-        // Puzle 3
+        
         if (GameManager.Instance.puzzle3Completado && !recompensaP3Entregada)
         {
             EjecutarCuracionRecompensa(ref recompensaP3Entregada);
+            puzles += 1;
+
+            TextoPuzles.text = string.Format("P:" + puzles.ToString());
         }
         if (GameManager.Instance.puzzle4Completado && !recompensaP4Entregada)
         {
             EjecutarCuracionRecompensa(ref recompensaP4Entregada);
+            puzles += 1;
+
+            TextoPuzles.text = string.Format("P:" + puzles.ToString());
         }
         if (GameManager.Instance.puzzle5Completado && !recompensaP5Entregada)
         {
             EjecutarCuracionRecompensa(ref recompensaP5Entregada);
+            puzles += 1;
+
+            TextoPuzles.text = string.Format("P:" + puzles.ToString());
         }
     }
     private void EjecutarCuracionRecompensa(ref bool controlBooleano)
@@ -107,12 +151,16 @@ public class AnimalHealth : MonoBehaviour
         data.currentHealth = Mathf.Min(data.currentHealth + cantidadCuracion, data.maxHealth);
         controlBooleano = true;
 
-        // Aquí es donde lanzamos el aviso para que la barra se ponga verde
+        
         OnAnimalHealthChanged?.Invoke(data.currentHealth, data.maxHealth);
 
-        // Llamamos a un nuevo evento específico para el efecto visual
+        
         OnAnimalHealedVisual?.Invoke();
     }
 
-    void Die() { Debug.Log("El animal ha muerto."); }
+    void Die() {
+        GameManager.Instance?.PrepararGameOver();
+        
+        SceneManager.LoadScene("GameOver");
+    }
 }

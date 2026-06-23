@@ -5,7 +5,7 @@ public class PuertaFinal : MonoBehaviour
     private Animator animator;
     private bool abierta = false;
 
-    // 1. Añade esta línea para guardar el archivo del Animator
+    
     public RuntimeAnimatorController controlador;
 
     void Start()
@@ -14,11 +14,11 @@ public class PuertaFinal : MonoBehaviour
 
         animator = GetComponent<Animator>();
 
-        // 2. Si al volver de la escena el controlador se ha borrado, lo reponemos
+        
         if (animator != null && animator.runtimeAnimatorController == null)
         {
             animator.runtimeAnimatorController = controlador;
-            Debug.Log("Controlador de animaciones restaurado manualmente.");
+            
         }
 
         ComprobarPuzzles();
@@ -36,7 +36,7 @@ public class PuertaFinal : MonoBehaviour
     void ComprobarPuzzles()
     {
         
-        // Añadimos una protección extra por si el GameManager tarda en cargar
+        
         if (GameManager.Instance != null)
         {
             
@@ -44,7 +44,7 @@ public class PuertaFinal : MonoBehaviour
                 GameManager.Instance.puzzle2Completado &&
                 GameManager.Instance.puzzle3Completado)
             {
-                Debug.Log("segundo if");
+                
                 AbrirPuerta();
             }
         }
@@ -52,9 +52,9 @@ public class PuertaFinal : MonoBehaviour
 
     void AbrirPuerta()
     {
-        if (abierta) return; // Evita que se ejecute dos veces
+        if (abierta) return; 
         abierta = true;
-        Debug.Log("entra abrir puerta");
+        
         if (animator != null)
         {
             animator.SetBool("Abrir",true);

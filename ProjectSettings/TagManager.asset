@@ -45,6 +45,9 @@ TagManager:
   - name: suelo
     uniqueID: 168704025
     locked: 0
+  - name: alfombra
+    uniqueID: 2274109455
+    locked: 0
   - name: arreglos
     uniqueID: 1601231939
     locked: 0

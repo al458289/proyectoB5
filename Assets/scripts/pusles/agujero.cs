@@ -9,7 +9,7 @@ public class agujero : MonoBehaviour
     
 
     private bool jugadorCerca = false;
-    private bool yaSeActivo = false; // Para evitar que intente cargar la escena muchas veces
+    private bool yaSeActivo = false; 
 
     void Start()
     {
@@ -32,14 +32,13 @@ public class agujero : MonoBehaviour
     {
         if (GameManager.Instance != null)
         {
-            // 1. Marcar puzzle como completado
+            
             GameManager.Instance.puzzle2Completado = true;
 
             
-            
         }
 
-        // 4. Cambiar escena
+        
         SceneManager.LoadScene(nombreDeLaEscenaDestino);
     }
 

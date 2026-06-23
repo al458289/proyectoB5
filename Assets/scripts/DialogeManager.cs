@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem; // IMPORTANTE: Añade esta línea
+using UnityEngine.InputSystem;
 
 public class DialogueManager : MonoBehaviour
 {
@@ -33,7 +33,6 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        // Detectamos la tecla Enter usando el nuevo Input System
         if (isDialogueActive && Keyboard.current.enterKey.wasPressedThisFrame)
         {
             if (isTyping)
@@ -51,11 +50,14 @@ public class DialogueManager : MonoBehaviour
 
     public void ShowText(string[] lines)
     {
-        Debug.Log("ha entrado2");
         sentences = lines;
         index = 0;
         isDialogueActive = true;
         textBoxCanvas.SetActive(true);
+
+        // 1. CONGELAMOS EL JUEGO AQUÍ
+        Time.timeScale = 0f;
+
         StartCoroutine(TypeLine());
     }
 
@@ -66,7 +68,9 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in sentences[index].ToCharArray())
         {
             textDisplay.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+
+            // ¡CAMBIO CLAVE! Usamos Realtime para que escriba aunque el juego esté en pausa
+            yield return new WaitForSecondsRealtime(typingSpeed);
         }
         isTyping = false;
     }
@@ -82,6 +86,9 @@ public class DialogueManager : MonoBehaviour
         {
             isDialogueActive = false;
             textBoxCanvas.SetActive(false);
+
+            // 2. REANUDAMOS EL JUEGO AQUÍ (Cuando ya no quedan más frases)
+            Time.timeScale = 1f;
         }
     }
 }

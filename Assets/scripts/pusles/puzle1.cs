@@ -7,9 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
-    // --- NUEVAS VARIABLES PARA EL ENEMIGO ---
+    
     [Header("Configuración Persecución")]
-    [SerializeField] private BotController enemigo; // Arrastra al enemigo aquí
+    [SerializeField] private BotController enemigo; 
     private bool haAvisadoAlEnemigo = false;
 
     private Vector3 escalaOriginal;
@@ -22,9 +22,9 @@ public class PlayerMovement : MonoBehaviour
         escalaOriginal = transform.localScale;
 
         string[] bienvenida = {
-            "Ves un tipo de juego encima de la mesilla, te das cuenta de que puedes controlar al raton.",
-            "PERO ten cuidado ya que al observarlo te das cuenta que hay un laser rojo...",
-            "¿Que deberías de hacer?"
+            "Ves  un  tipo  de  juego  encima  de  la  mesilla,  te  das  cuenta  de  que  puedes  controlar  al  raton.",
+            "PERO  ten  cuidado  ya  que  al  observarlo  te  das  cuenta  que  hay  un  laser  rojo,  tienes  que  intentar  despistarlo. ",
+            "¿Que  deberías  de  hacer?"
         };
         DialogueManager.Instance.ShowText(bienvenida);
     }
@@ -33,14 +33,13 @@ public class PlayerMovement : MonoBehaviour
     {
         moveInput = value.Get<Vector2>();
 
-        // LÓGICA DE AVISO:
-        // Si el jugador pulsa cualquier dirección y aún no hemos avisado
+        
         if (moveInput.sqrMagnitude > 0 && !haAvisadoAlEnemigo)
         {
             if (enemigo != null)
             {
-                enemigo.ActivarPersecucion(); // Despierta al enemigo
-                haAvisadoAlEnemigo = true;    // Marcamos como avisado para no repetir
+                enemigo.ActivarPersecucion(); 
+                haAvisadoAlEnemigo = true;    
             }
         }
     }

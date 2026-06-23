@@ -24,18 +24,17 @@ public class InteractuarEscena : MonoBehaviour
 
     void Update()
     {
-        // Detectar interacción (Tecla F)
+        
         if (jugadorCerca && Keyboard.current != null && Keyboard.current.fKey.wasPressedThisFrame)
         {
-            // ACTUALIZACIÓN: Solo llamamos al GameManager.
-            // Él ya se encarga de buscar al jugador y guardar su posición actual.
+            
             if (GameManager.Instance != null)
             {
                 GameManager.Instance.playerPosition = posicionEnNuevaEscena;
                 GameManager.Instance.SaveGame();
             }
 
-            // Cambiar de escena
+            
             SceneManager.LoadScene(nombreDeLaEscenaDestino);
         }
     }

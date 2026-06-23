@@ -21,7 +21,8 @@ public class GameManager : MonoBehaviour
     public bool puzzle2Completado;
     public bool puzzle3Completado;
     public bool puzzle4Completado;
-    public bool puzzle5Completado;// <--- AÑADIDO
+    public bool puzzle5Completado;
+    public bool textoEnseñado;
 
     private static bool yaSeLimpioAlEmpezar = false;
 
@@ -31,10 +32,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("ha entrado1");
+        
         string[] bienvenida = {
         "Acabas  de  recuperar  la  conciencia,  estas  totalmente  perdido,   lo  unico  que  sabes   es  que  hay  un  lince  que  esta  muriendo  al  lado  tuya.",
-        "Si  quieres  salvarlo  y  salir de aqui deberas  hacer  los   puzles,  con   ellos  conseguiras  curarle  un  poco."
+        "Si  quieres  salvarlo  y  salir de aqui deberas  hacer  los   puzles,  con   ellos  conseguiras  curarle  un  poco. Puedes  observar  cuantos  puzles  has  completado."
     };
         DialogueManager.Instance.ShowText(bienvenida);
     }
@@ -46,19 +47,17 @@ public class GameManager : MonoBehaviour
         {
             Instance = this;
 
-            // --- ESTA ES LA LÍNEA QUE HEMOS AÑADIDO ---
-            // Permite que el Manager te siga al laberinto/puzles sin borrarse.
-            // Cuando quites el modo Play, se destruirá automáticamente como tú quieres.
+
             DontDestroyOnLoad(gameObject);
 
 #if UNITY_EDITOR
-            // Si es la primera vez que entramos (al darle al Play)
+            
             if (!yaSeLimpioAlEmpezar)
             {
                 PlayerPrefs.DeleteAll();
                 ResetDatosLocales();
-                yaSeLimpioAlEmpezar = true; // Marcamos que ya se limpió
-                Debug.Log("Memoria limpiada por inicio de sesión de juego");
+                yaSeLimpioAlEmpezar = true; 
+                
             }
 #endif
 
@@ -66,23 +65,23 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            // Si ya existe un Manager (de la escena anterior), 
-            // destruimos el nuevo para quedarnos con el que ya tiene los datos.
+
             Destroy(gameObject);
         }
     }
     private void AlCargarEscena(Scene escena, LoadSceneMode modo)
     {
-        
+
         if (escena.name != "GameOver")
         {
-            
+
             GameObject obj = GameObject.Find("tiempoTexto");
             if (obj != null)
             {
                 textoTiempo = obj.GetComponent<TextMeshProUGUI>();
-                Debug.Log("Texto del cronómetro reconectado.");
+                
             }
+            AnimalHealth.Instance.buscarTexto();
         }
     }
 
@@ -93,8 +92,10 @@ public class GameManager : MonoBehaviour
         puzzle2Completado = false;
         puzzle3Completado = false;
         puzzle4Completado = false;
-        puzzle5Completado = false;// <--- AÑADIDO
-        playerPosition = Vector3.zero; // Reset de posición
+        puzzle5Completado = false;
+        textoEnseñado = false;
+        AnimalHealth.Instance.puzles = 0;
+        playerPosition = Vector3.zero;
         if (animalHealthData != null)
         {
             animalHealthData.currentHealth = animalHealthData.maxHealth;
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveGame()
     {
-        // Esta es la única línea nueva: preguntar al jugador dónde está antes de guardar
+        
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerPosition = player.transform.position;
 
@@ -137,11 +138,11 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Puzzle2", puzzle2Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle3", puzzle3Completado ? 1 : 0);
         PlayerPrefs.SetInt("Puzzle4", puzzle4Completado ? 1 : 0);
-        PlayerPrefs.SetInt("Puzzle5", puzzle5Completado ? 1 : 0);// <--- AÑADIDO
+        PlayerPrefs.SetInt("Puzzle5", puzzle5Completado ? 1 : 0);
         PlayerPrefs.SetFloat("TiempoJuego", tiempoTranscurrido);
 
         PlayerPrefs.Save();
-        Debug.Log("Partida Guardada");
+        
     }
 
     public void LoadGame()
@@ -159,16 +160,16 @@ public class GameManager : MonoBehaviour
         puzzle2Completado = PlayerPrefs.GetInt("Puzzle2", 0) == 1;
         puzzle3Completado = PlayerPrefs.GetInt("Puzzle3", 0) == 1;
         puzzle4Completado = PlayerPrefs.GetInt("Puzzle4", 0) == 1;
-        puzzle5Completado = PlayerPrefs.GetInt("Puzzle5", 0) == 1;// <--- AÑADIDO
+        puzzle5Completado = PlayerPrefs.GetInt("Puzzle5", 0) == 1;
         tiempoTranscurrido = PlayerPrefs.GetFloat("TiempoJuego", 0f);
 
-        Debug.Log("Partida Cargada");
+        
     }
-    
+
 
     public void PrepararGameOver()
     {
-        // 1. Guardamos los datos actuales en nuestras variables de "resultado"
+        
         tiempoFinalPartida = tiempoTranscurrido;
 
         if (animalHealthData != null)
@@ -176,29 +177,16 @@ public class GameManager : MonoBehaviour
             vidaFinalPartida = animalHealthData.currentHealth;
         }
 
-        // 2. Reseteamos el progreso del juego para la siguiente vez
-        puzzle1Completado = false;
-        puzzle2Completado = false;
-        puzzle3Completado = false;
-        puzzle4Completado = false;
-        puzzle5Completado = false;
+        
+        ResetDatosLocales();
 
-        playerPosition = new Vector3(
-            PlayerPrefs.GetFloat("PlayerX", 0),
-            PlayerPrefs.GetFloat("PlayerY", 0),
-            PlayerPrefs.GetFloat("PlayerZ", 0)
-        );
-
-        if (animalHealthData != null)
-            animalHealthData.currentHealth = PlayerPrefs.GetFloat("AnimalHealth", 100f);
-
-        // Reseteamos el cronómetro principal para que empiece de 0 al reintentar
         tiempoTranscurrido = 0f;
+        AnimalHealth.Instance.resetDatos();
 
-        // 3. Limpiamos los PlayerPrefs de progreso para que no cargue puzles hechos
+       
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        Debug.Log("Datos guardados en variables: Tiempo " + tiempoFinalPartida + " - Vida " + vidaFinalPartida);
+        
     }
 }
